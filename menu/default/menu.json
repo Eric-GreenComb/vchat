@@ -1,0 +1,49 @@
+{
+    "button": [
+        {
+            "type": "click",
+            "name": "今日歌今日歌",
+            "key": "company"
+        },
+        {
+            "name": "菜单",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "搜索",
+                    "url": "http://www.soso.com/"
+                },
+                {
+                    "type": "view",
+                    "name": "视频",
+                    "url": "http://v.qq.com/"
+                },
+                {
+                    "type": "click",
+                    "name": "AboutUs",
+                    "key": "company"
+                }
+            ]
+        },
+        {
+            "name": "菜单",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "搜索",
+                    "url": "http://www.soso.com/"
+                },
+                {
+                    "type": "view",
+                    "name": "视频",
+                    "url": "http://v.qq.com/"
+                },
+                {
+                    "type": "click",
+                    "name": "AboutUs",
+                    "key": "company"
+                }
+            ]
+        }
+    ]
+}
