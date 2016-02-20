@@ -1,0 +1,7 @@
+# vchat config
+[vchat]
+# 这里改成你自己的参数 
+aesKey = "jWmYm7qr5nMoAUwZRjGtBxmz3KA1tkAj3ykkR6q2B2C"
+oriId = "gh_5f7ecd51f44f"
+token = "abcstack"
+appId = "wx08835d00c2f20e86"
