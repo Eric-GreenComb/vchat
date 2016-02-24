@@ -2,7 +2,7 @@
     "button": [
         {
             "type": "click",
-            "name": "今日歌今日歌",
+            "name": "AboutUS",
             "key": "company"
         },
         {

@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/banerwai/vchat/util"
+	api_http "github.com/banerwai/gommon/net/http"
 	"github.com/chanxuehong/wechat/mp"
 	"github.com/pelletier/go-toml"
 	"io/ioutil"
@@ -54,7 +54,7 @@ func CreateMenu(menu_file string) (err error) {
 
 	finalURL := incompleteURL + url.QueryEscape(_token)
 
-	if err = util.PostRawJson(finalURL, _f, &result); err != nil {
+	if err = api_http.PostRawJson(finalURL, _f, &result); err != nil {
 		return
 	}
 
