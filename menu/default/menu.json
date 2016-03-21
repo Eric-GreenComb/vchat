@@ -42,7 +42,12 @@
                     "type": "click",
                     "name": "AboutUs",
                     "key": "company"
-                }
+                },
+                {
+                    "type": "click",
+                    "name": "MyOpenID",
+                    "key": "myopenid"
+                }                
             ]
         }
     ]

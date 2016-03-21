@@ -152,6 +152,10 @@ func DefaultEventHandler(w http.ResponseWriter, r *mp.Request) {
 			resp := response.NewNews(text.FromUserName, text.ToUserName, time.Now().Unix(), _articles)
 			mp.WriteRawResponse(w, r, resp)
 			break
+		case "myopenid":
+			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), text.FromUserName)
+			mp.WriteRawResponse(w, r, resp) // 明文模式
+			break
 		default:
 
 			break
