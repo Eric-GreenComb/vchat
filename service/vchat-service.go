@@ -90,14 +90,12 @@ func TextMessageHandler(w http.ResponseWriter, r *mp.Request) {
 	switch text.Content {
 	case "hello":
 		resp = response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "Hi")
-		break
 	case "auto":
 		kf = response.NewTransferToCustomerService(text.FromUserName, text.ToUserName, time.Now().Unix(), "")
 		mp.WriteRawResponse(w, r, kf)
 		return
 	default:
 		resp = response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "Hello,World")
-		break
 	}
 
 	mp.WriteRawResponse(w, r, resp) // 明文模式
@@ -136,8 +134,19 @@ func DefaultEventHandler(w http.ResponseWriter, r *mp.Request) {
 	switch r.MixedMsg.Event {
 	case "CLICK":
 		switch r.MixedMsg.EventKey {
-		case "company":
-			// resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "AboutMe\n\nThis is ddd\n\ntest")
+		case "lastrss":
+			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "lastrss\n\nThis is lastrss\n\ntest")
+			mp.WriteRawResponse(w, r, resp)
+		case "lastwork":
+			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "lastwork\n\nThis is lastwork\n\ntest")
+			mp.WriteRawResponse(w, r, resp)
+		case "lastsearchtag":
+			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "lastsearchtag\n\nThis is lastsearchtag\n\ntest")
+			mp.WriteRawResponse(w, r, resp)
+		case "cooperation":
+			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "cooperation\n\nThis is cooperation\n\ntest")
+			mp.WriteRawResponse(w, r, resp)
+		case "aboutus":
 
 			var _articles []response.Article
 
@@ -151,15 +160,11 @@ func DefaultEventHandler(w http.ResponseWriter, r *mp.Request) {
 
 			resp := response.NewNews(text.FromUserName, text.ToUserName, time.Now().Unix(), _articles)
 			mp.WriteRawResponse(w, r, resp)
-			break
 		case "myopenid":
 			resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), text.FromUserName)
 			mp.WriteRawResponse(w, r, resp) // 明文模式
-			break
 		default:
 
-			break
 		}
-		break
 	}
 }
