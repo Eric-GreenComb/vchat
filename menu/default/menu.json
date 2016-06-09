@@ -1,53 +1,73 @@
 {
     "button": [
         {
-            "type": "click",
-            "name": "AboutUS",
-            "key": "company"
-        },
-        {
-            "name": "菜单",
+            "name": "找人",
             "sub_button": [
                 {
                     "type": "view",
+                    "name": "发布需求",
+                    "url": "http://h5.banerwai.com/client/request"
+                },                 
+                {
+                    "type": "click",
+                    "name": "最新订阅",
+                    "key": "lastrss"
+                },                
+                {
+                    "type": "view",
                     "name": "搜索",
-                    "url": "http://www.soso.com/"
+                    "url": "http://h5.banerwai.com/freelancer/search"
                 },
                 {
                     "type": "view",
-                    "name": "视频",
-                    "url": "http://v.qq.com/"
-                },
-                {
-                    "type": "click",
-                    "name": "AboutUs",
-                    "key": "company"
+                    "name": "收件箱",
+                    "url": "http://h5.banerwai.com/inbox/client"
                 }
             ]
         },
         {
-            "name": "菜单",
+            "name": "工作",
             "sub_button": [
+                {
+                    "type": "click",
+                    "name": "最新工作",
+                    "key": "lastwork"
+                },
+                {
+                    "type": "click",
+                    "name": "最新搜索Tag",
+                    "key": "lastsearchtag"
+                },                
                 {
                     "type": "view",
                     "name": "搜索",
-                    "url": "http://www.soso.com/"
+                    "url": "http://h5.banerwai.com/work/search"
                 },
                 {
                     "type": "view",
-                    "name": "视频",
-                    "url": "http://v.qq.com/"
+                    "name": "收件箱",
+                    "url": "http://h5.banerwai.com/inbox/freelancer"
+                }
+            ]
+        },
+        {
+            "name": "更多",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "帮助",
+                    "url": "http://help.banerwai.com"
                 },
                 {
                     "type": "click",
-                    "name": "AboutUs",
-                    "key": "company"
+                    "name": "签约合作",
+                    "key": "cooperation"
                 },
                 {
                     "type": "click",
-                    "name": "MyOpenID",
-                    "key": "myopenid"
-                }                
+                    "name": "联系我们",
+                    "key": "aboutus"
+                }              
             ]
         }
     ]
