@@ -10,25 +10,38 @@ import (
 	"net/url"
 )
 
-var AppDir string
-var _app_dir string
-var TomlTree *toml.TomlTree
-var CorpId, CorpSecret string
+var (
+	// AppDir vchat app dir
+	AppDir string
 
-var AccessTokenServer *mp.DefaultAccessTokenServer
-var MpClient *mp.Client
+	// TomlTree toml file tree
+	TomlTree *toml.TomlTree
+
+	// CorpID corpID
+	CorpID string
+
+	// CorpSecret CorpSecret
+	CorpSecret string
+
+	// AccessTokenServer mp DefaultAccessTokenServer
+	AccessTokenServer *mp.DefaultAccessTokenServer
+
+	// MpClient mp Client
+	MpClient *mp.Client
+)
 
 func init() {
-	flag.StringVar(&_app_dir, "d", "default", "input app dir")
+	var _appDir string
+	flag.StringVar(&_appDir, "d", "default", "input app dir")
 	flag.Parse()
-	AppDir = fmt.Sprintf("./%s/", _app_dir)
+	AppDir = fmt.Sprintf("./%s/", _appDir)
 
 	TomlTree, _ = toml.LoadFile(AppDir + "config.toml")
 
-	CorpId = TomlTree.Get("vchat.corpId").(string)
+	CorpID = TomlTree.Get("vchat.corpId").(string)
 	CorpSecret = TomlTree.Get("vchat.corpSecret").(string)
 
-	AccessTokenServer = mp.NewDefaultAccessTokenServer(CorpId, CorpSecret, nil) // 一個應用只能有一個實例
+	AccessTokenServer = mp.NewDefaultAccessTokenServer(CorpID, CorpSecret, nil) // 一個應用只能有一個實例
 	MpClient = mp.NewClient(AccessTokenServer, nil)
 }
 
@@ -37,15 +50,15 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(_app_dir + " set menu success")
 }
 
-func CreateMenu(menu_file string) (err error) {
+// CreateMenu gen vchat menu
+func CreateMenu(menuFile string) (err error) {
 	var result mp.Error
 
 	incompleteURL := "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
 
-	_f, _ := ioutil.ReadFile(menu_file)
+	_f, _ := ioutil.ReadFile(menuFile)
 
 	_token, err := MpClient.Token()
 	if err != nil {

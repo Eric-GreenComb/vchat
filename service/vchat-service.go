@@ -14,9 +14,20 @@ import (
 	"time"
 )
 
-var TomlTree *toml.TomlTree
-var AesKey, OriId, Token, AppId string
-var ListenPort string
+var (
+	// TomlTree toml file tree
+	TomlTree *toml.TomlTree
+	// AesKey vchat api aeskey
+	AesKey string
+	// OriID vchat api oriid
+	OriID string
+	// Token vchat api token
+	Token string
+	// AppID vchat api appid
+	AppID string
+	// ListenPort vchat service port
+	ListenPort string
+)
 
 func init() {
 	flag.StringVar(&ListenPort, "p", "3000", "negroni listen port")
@@ -25,9 +36,9 @@ func init() {
 	TomlTree, _ = toml.LoadFile("config.toml")
 
 	AesKey = TomlTree.Get("vchat.aesKey").(string)
-	OriId = TomlTree.Get("vchat.oriId").(string)
+	OriID = TomlTree.Get("vchat.oriId").(string)
 	Token = TomlTree.Get("vchat.token").(string)
-	AppId = TomlTree.Get("vchat.appId").(string)
+	AppID = TomlTree.Get("vchat.appId").(string)
 }
 
 func main() {
@@ -43,6 +54,7 @@ func main() {
 	http.ListenAndServe(_port, n)
 }
 
+// SetupBaseRouter base router
 func SetupBaseRouter(m *http.ServeMux) {
 	m.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "OK!")
@@ -52,6 +64,7 @@ func SetupBaseRouter(m *http.ServeMux) {
 	})
 }
 
+// SetupWeChatRouter vchat router
 func SetupWeChatRouter(m *http.ServeMux) {
 	m.Handle("/vxapi", getMpServerFrontend())
 }
@@ -71,17 +84,18 @@ func getMpServerFrontend() *mp.ServerFrontend {
 	messageServeMux.DefaultEventHandleFunc(DefaultEventHandler)
 
 	// 下面函数的几个参数设置成你自己的参数: oriId, token, appId
-	mpServer := mp.NewDefaultServer(OriId, Token, AppId, _aesKey, messageServeMux)
+	mpServer := mp.NewDefaultServer(OriID, Token, AppID, _aesKey, messageServeMux)
 
 	mpServerFrontend := mp.NewServerFrontend(mpServer, mp.ErrorHandlerFunc(ErrorHandler), nil)
 	return mpServerFrontend
 }
 
+// ErrorHandler error handler
 func ErrorHandler(w http.ResponseWriter, r *http.Request, err error) {
 	log.Println(err.Error())
 }
 
-// 文本消息的 Handler
+// TextMessageHandler 文本消息的 Handler
 func TextMessageHandler(w http.ResponseWriter, r *mp.Request) {
 	text := request.GetText(r.MixedMsg) // 可以省略, 直接从 r.MixedMsg 取值
 
@@ -102,14 +116,14 @@ func TextMessageHandler(w http.ResponseWriter, r *mp.Request) {
 	//mp.WriteAESResponse(w, r, resp) // 安全模式
 }
 
-// Voice消息的 Handler
+// VoiceMessageHandler Voice消息的 Handler
 func VoiceMessageHandler(w http.ResponseWriter, r *mp.Request) {
 	text := request.GetText(r.MixedMsg) // 可以省略, 直接从 r.MixedMsg 取值
 	resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "Hello, Voice")
 	mp.WriteRawResponse(w, r, resp)
 }
 
-// Subscribe Event 的 Handler
+// EventSubscribeHandler Subscribe Event 的 Handler
 func EventSubscribeHandler(w http.ResponseWriter, r *mp.Request) {
 	text := request.GetText(r.MixedMsg) // 可以省略, 直接从 r.MixedMsg 取值
 	// resp := response.NewText(text.FromUserName, text.ToUserName, time.Now().Unix(), "Welcome ...")
@@ -127,7 +141,7 @@ func EventSubscribeHandler(w http.ResponseWriter, r *mp.Request) {
 	mp.WriteRawResponse(w, r, resp)
 }
 
-// Subscribe Event 的 Handler
+// DefaultEventHandler Subscribe Event 的 Handler
 func DefaultEventHandler(w http.ResponseWriter, r *mp.Request) {
 	text := request.GetText(r.MixedMsg)
 
